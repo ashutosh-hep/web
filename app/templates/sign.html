@@ -1,0 +1,174 @@
+{% if m %}
+
+<script>
+  alert("{{m}}");
+</script>
+
+{% endif %} {% if r %}
+
+<script>
+  alert("{{r}}");
+</script>
+
+{% endif %} {% if rw %}
+
+<script>
+  alert("{{rw}}");
+</script>
+
+{% endif %} {% if ms %}
+
+<script>
+  alert("{{ms}}");
+</script>
+
+{% endif %}
+<style>
+  body {
+    background-color: #344a72;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .ll {
+    width: 360px;
+    height: 620px;
+    margin: auto;
+    background-color: white;
+    border-radius: 3px;
+  }
+
+  h1 {
+    text-align: center;
+    padding-top: 15px;
+  }
+
+  form {
+    width: 300px;
+    margin-left: 20px;
+  }
+
+  form label {
+    display: flex;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+
+  form input {
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 6px;
+    outline: none;
+  }
+
+  input[type="submit"] {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+  }
+
+  button {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+    border-radius: 3px;
+  }
+  button:hover {
+    background-color: rgb(93, 138, 9);
+  }
+  #sub:hover {
+    background-color: rgb(93, 138, 9);
+  }
+  #sub,
+  button {
+    cursor: pointer;
+  }
+  .social-signin {
+    align-items: center;
+    margin-left: 5.5%;
+    margin-bottom: 1%;
+  }
+</style>
+<body>
+  <div class="ll">
+    <h1>Sign In</h1>
+
+    <form action="postsign" method="post">
+      {% csrf_token %} Email :
+      <input type="email" name="email" /><br /><br />
+      Password :
+      <input type="password" name="password" /><br /><br />
+
+      <input type="submit" id="sub" value="Sign In" />
+
+      <button type="button" onclick="document.location='up'">SignUp</button>
+
+      <button type="button" onclick="document.location='fp'">
+        Forgot Password?
+      </button>
+    </form>
+    <button class="social-signin" id="login">Sign Up with Google</button>
+  </div>
+</body>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+  import {
+    sendPasswordResetEmail,
+    getAuth,
+    GoogleAuthProvider,
+    signInWithRedirect,
+    getRedirectResult,
+    signInWithPopup,
+    signOut,
+  } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBh54bhUiOduOlyq6k6DTTeXL_lAg0L94w",
+    authDomain: "cpanel-10ae6.firebaseapp.com",
+    databaseURL: "https://cpanel-10ae6-default-rtdb.firebaseio.com",
+    projectId: "cpanel-10ae6",
+    storageBucket: "cpanel-10ae6.appspot.com",
+    messagingSenderId: "206710126999",
+    appId: "1:206710126999:web:ee4da3d9d3f7de6bd4ecd2",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider(app);
+
+  login.addEventListener("click", (e) => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+
+        alert("kindly check with your mail to set password");
+        const auth = getAuth();
+        sendPasswordResetEmail(auth, user.email)
+          .then(() => {})
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+
+        alert(errorMessage);
+      });
+  });
+</script>

@@ -1,0 +1,105 @@
+{% if m %}
+
+<script>
+  alert("{{m}}");
+</script>
+
+{% endif %}
+<style>
+  body {
+    background-color: #344a72;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .forget-box {
+    width: 360px;
+    height: 225px;
+    margin: auto;
+    background-color: white;
+    border-radius: 3px;
+  }
+
+  h1 {
+    text-align: center;
+    padding-top: 15px;
+  }
+
+  form {
+    width: 300px;
+    margin-left: 20px;
+  }
+
+  form label {
+    display: flex;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+
+  form input {
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 6px;
+    outline: none;
+  }
+
+  input[type="submit"] {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+  }
+
+  button {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+    border-radius: 3px;
+    margin-left: 5.8%;
+  }
+  button:hover {
+    color: #d42020;
+  }
+  button {
+    cursor: pointer;
+  }
+
+  .as {
+    margin-top: 15%;
+    align-items: center;
+  }
+  #lo {
+    color: aliceblue;
+    margin-left: 40.5%;
+  }
+</style>
+
+<body>
+  <div id="lo">
+    <h2>Welcome to certihub</h2>
+    <h3>{{e}}</h3>
+  </div>
+  <div class="forget-box">
+    <body>
+      <div>
+        <button type="button" onclick="document.location='create'">
+          Register Certification details
+        </button>
+        <button type="button" onclick="document.location='existing'">
+          existing Certification details
+        </button>
+        <button type="button" onclick="document.location='logout'">
+          logout</button
+        ><br /><br />
+      </div>
+    </body>
+  </div>
+</body>

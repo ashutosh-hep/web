@@ -1,0 +1,176 @@
+{% if m %}
+
+<script>
+  alert("{{m}}");
+</script>
+
+{% endif %}
+<style>
+  #oi {
+    margin-left: 38%;
+    width: 360px;
+    height: 845px;
+    margin: auto;
+    background-color: rgba(252, 250, 250, 0.979);
+    border-radius: 3px;
+    padding-top: 1%;
+  }
+
+  body {
+    background-color: #344a72;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .signup-box {
+    width: 360px;
+    height: 620px;
+    margin: auto;
+    background-color: white;
+    border-radius: 3px;
+  }
+
+  h1 {
+    text-align: center;
+    padding-top: 15px;
+  }
+
+  form {
+    width: 300px;
+    margin-left: 20px;
+  }
+
+  form label {
+    display: flex;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+
+  form input {
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 6px;
+    outline: none;
+  }
+
+  input[type="submit"] {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+  }
+
+  button {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+    border-radius: 3px;
+  }
+  button:hover {
+    color: #d42020;
+  }
+  #pl:hover {
+    color: #d42020;
+  }
+  button,
+  #pl {
+    cursor: pointer;
+  }
+
+  h1,
+  #pl {
+    color: white;
+  }
+</style>
+
+<body>
+  <div>
+    <h1>Certification Registration</h1>
+    <div id="oi">
+      <form action="postcreate" method="post">
+        {% csrf_token %} Employee Name:
+        <input type="text" name="ename" required /><br /><br />
+
+        <label for="cspwe">Choose the CSP:</label>
+
+        <select name="csp" id="csp" required>
+          <option value="GCP">GCP</option>
+          <option value="AWS">AWS</option>
+          <option value="Azure">Azure</option>
+        </select>
+        <br /><br />
+        Certification Level :
+        <input type="text" name="clevel" required /><br /><br />
+        Certification Name :
+        <input type="text" name="cname" required /><br /><br />
+        Certification Id :
+        <input type="text" name="cid" required /><br /><br />
+        Date of Certification :
+        <input type="date" name="cdate" required /><br /><br />
+        Expiry Date of Certification :
+        <input type="date" name="edate" required /><br /><br />
+        Validity :
+        <input type="number" name="validity" required /><br /><br />
+        Upload Certificate:
+
+        <input type="file" name="file[]" id="file" required />
+        <input type="hidden" name="url" id="url" />
+        <button type="button" onclick="uploadimg()">Upload</button>
+        <br />
+
+        <input type="submit" id="pl" value="Submit details" /><br />
+        <br />
+
+        <button type="button" onclick="history.back()">cancel</button>
+      </form>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+
+    <script>
+      var config = {
+        apiKey: "AIzaSyBh54bhUiOduOlyq6k6DTTeXL_lAg0L94w",
+        authDomain: "cpanel-10ae6.firebaseapp.com",
+        databaseURL: "https://cpanel-10ae6-default-rtdb.firebaseio.com",
+        projectId: "cpanel-10ae6",
+        storageBucket: "cpanel-10ae6.appspot.com",
+        messagingSenderId: "206710126999",
+        appId: "1:206710126999:web:ee4da3d9d3f7de6bd4ecd2",
+      };
+
+      firebase.initializeApp(config);
+
+      function uploadimg() {
+        var sto = firebase.storage();
+        var file = document.getElementById("file").files[0];
+        var storef = sto.ref();
+
+        var thisref = storef.child(file.name).put(file);
+
+        thisref.on(
+          "state_changed",
+          function (snapshot) {
+            console.log("file up socs");
+          },
+          function (error) {},
+          function () {
+            var downloadURL = thisref.snapshot.downloadURL;
+            console.log("got");
+            document.getElementById("url").value = downloadURL;
+            alert("file uploaded successfully");
+          }
+        );
+      }
+
+      var sto = firebase.storage();
+    </script>
+  </div>
+</body>

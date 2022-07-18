@@ -1,0 +1,125 @@
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid rgb(255, 255, 255);
+  }
+
+  body {
+    background-color: #344a72;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .signup-box {
+    width: 360px;
+    height: 620px;
+    margin: auto;
+    background-color: white;
+    border-radius: 3px;
+  }
+
+  h1 {
+    text-align: center;
+    padding-top: 15px;
+    color: azure;
+  }
+
+  form {
+    width: 300px;
+    margin-left: 20px;
+  }
+
+  form label {
+    display: flex;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+
+  form input {
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 6px;
+    outline: none;
+  }
+
+  input[type="submit"] {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+  }
+
+  button {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+    border-radius: 3px;
+  }
+  a {
+    text-decoration: none;
+    color: #e3e7e1cc;
+  }
+  button:hover {
+    color: #d42020;
+  }
+  button,
+  #lo {
+    cursor: pointer;
+  }
+
+  #lo:hover {
+    color: #d42020;
+  }
+
+  a:hover {
+    color: #b3d420a4;
+  }
+</style>
+
+<body>
+  <div>
+    <h1>All existing Certification</h1>
+
+    <form method="get" action="existing" id="s">
+      {% csrf_token %}
+
+      <input type="text" placeholder="search..." name="search" />
+      <input type="hidden" value="{{uid}}" />
+      <button
+        type="submit"
+        id="lo"
+        onclick="document.location='existing?uid={{uid}}'"
+        form="s"
+      >
+        Go
+      </button>
+    </form>
+    <table>
+      <tr>
+        <th>Certification Name</th>
+        <th>Action</th>
+      </tr>
+      {% for a,b in m %}
+      <tr>
+        <td><a href="pe?z={{a}}">{{a}}</a><br /></td>
+        <td><a href="delete?w={{a}}">delete</a><br /></td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <button type="button" onclick="history.back()">Home</button>
+    <button type="button" onclick="document.location='create'">
+      Add another Certificate
+    </button>
+    <button type="button" onclick="document.location='logout'">logout</button>
+  </div>
+</body>

@@ -1,0 +1,90 @@
+<!-- <button type="button" onclick="history.back()">Back</button>
+
+<button type="button" onclick="document.location='logout'">logout</button> -->
+
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid white;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    background-color: #96d4d4;
+  }
+
+  button {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+  }
+
+  body {
+    background-color: #344a72;
+    font-family: "Roboto", sans-serif;
+  }
+
+  h1 {
+    text-align: center;
+    color: white;
+  }
+  button:hover {
+    color: #d42020;
+  }
+  button {
+    cursor: pointer;
+  }
+</style>
+
+<body>
+  <div>
+    <h1>Certification Details</h1>
+    <button type="button" onclick="history.back()">Back</button>
+
+    <button
+      type="button"
+      onclick="document.location='logout'"
+      style="position: absolute; top: 0px; right: 0px"
+    >
+      logout
+    </button>
+
+    <table>
+      <tr>
+        <th>Employee Name</th>
+        <th>CSP</th>
+        <th>Certification Level</th>
+        <th>Certification Name</th>
+        <th>Certification Id</th>
+        <th>Date of Certification</th>
+        <th>Expiry of Certification</th>
+        <th>Validity</th>
+      </tr>
+      <tr>
+        <td>{{ename}}</td>
+        <td>{{csp}}</td>
+        <td>{{clevel}}</td>
+        <td>{{cname}}</td>
+        <td>{{cid}}</td>
+        <td>{{cdate}}</td>
+        <td>{{edate}}</td>
+        <td>{{validity}}</td>
+      </tr>
+    </table>
+
+    <br />
+    <br />
+
+    <br />
+
+    <img src="{{cimg}}" width="50%" height="50%" />
+  </div>
+</body>

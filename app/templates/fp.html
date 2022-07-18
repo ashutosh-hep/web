@@ -1,0 +1,80 @@
+<style>
+  body {
+    background-color: #344a72;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .forget-box {
+    width: 360px;
+    height: 620px;
+    margin: auto;
+    background-color: white;
+    border-radius: 3px;
+  }
+
+  h1 {
+    text-align: center;
+    padding-top: 15px;
+  }
+
+  form {
+    width: 300px;
+    margin-left: 20px;
+  }
+
+  form label {
+    display: flex;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+
+  form input {
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 6px;
+    outline: none;
+  }
+
+  input[type="submit"] {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+  }
+
+  button {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #49c1a2;
+    color: white;
+    font-size: 18px;
+    border-radius: 3px;
+  }
+
+  .as {
+    margin-top: 15%;
+    align-items: center;
+  }
+</style>
+
+<body>
+  <div class="forget-box">
+    <h1 id="fp">Forget Password</h1>
+    <div class="as">
+      <form action="postfp" method="post">
+        {% csrf_token %}
+        <label>Email:</label>
+        <input type="email" name="email" /><br />
+
+        <input type="submit" value="Send Link" />
+      </form>
+    </div>
+  </div>
+</body>
