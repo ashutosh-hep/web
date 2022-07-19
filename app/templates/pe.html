@@ -6,8 +6,11 @@
   table,
   th,
   td {
-    border: 1px solid white;
+    border: 3px solid white;
     border-collapse: collapse;
+    text-align: center;
+    width: 1100px;
+    height: 21px;
   }
 
   th,
@@ -16,7 +19,7 @@
   }
 
   button {
-    width: 320px;
+    width: 100px;
     height: 35px;
     margin-top: 20px;
     border: none;
@@ -28,8 +31,11 @@
   }
 
   body {
-    background-color: #344a72;
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/cpanel-10ae6.appspot.com/o/bg-01.jpg?alt=media&token=c6d82939-bb59-4ff4-903c-09b0af8c7b28);
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: "Roboto", sans-serif;
+    margin-top: 2.9%;
   }
 
   h1 {
@@ -37,27 +43,43 @@
     color: white;
   }
   button:hover {
-    color: #d42020;
+    background-color: rgb(236, 136, 203);
   }
   button {
     cursor: pointer;
   }
+  #po {
+    margin-left: 15%;
+    padding-top: 3%;
+  }
+  #ko {
+    margin-left: 24%;
+  }
+  #io {
+    margin-top: 0.8%;
+    padding-top: 1%;
+  }
 </style>
-
+<h1 id="io">Certification Details</h1>
 <body>
   <div>
-    <h1>Certification Details</h1>
-    <button type="button" onclick="history.back()">Back</button>
+    <button
+      type="button"
+      style="position: absolute; top: 2px; left: 14px"
+      onclick="history.back()"
+    >
+      Back
+    </button>
 
     <button
       type="button"
       onclick="document.location='logout'"
-      style="position: absolute; top: 0px; right: 0px"
+      style="position: absolute; top: 2px; right: 14px"
     >
       logout
     </button>
 
-    <table>
+    <table id="po">
       <tr>
         <th>Employee Name</th>
         <th>CSP</th>
@@ -85,6 +107,6 @@
 
     <br />
 
-    <img src="{{cimg}}" width="50%" height="50%" />
+    <img id="ko" src="{{cimg}}" width="52%" height="57%" />
   </div>
 </body>

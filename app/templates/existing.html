@@ -2,56 +2,23 @@
   table,
   th,
   td {
-    border: 1px solid rgb(255, 255, 255);
+    text-align: center;
+    border: 3px solid white;
+    border-collapse: collapse;
+    background-color: #96d4d4;
   }
 
   body {
-    background-color: #344a72;
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/cpanel-10ae6.appspot.com/o/bg-01.jpg?alt=media&token=c6d82939-bb59-4ff4-903c-09b0af8c7b28);
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: "Roboto", sans-serif;
-  }
-
-  .signup-box {
-    width: 360px;
-    height: 620px;
-    margin: auto;
-    background-color: white;
-    border-radius: 3px;
   }
 
   h1 {
     text-align: center;
-    padding-top: 15px;
+    padding-top: 10px;
     color: azure;
-  }
-
-  form {
-    width: 300px;
-    margin-left: 20px;
-  }
-
-  form label {
-    display: flex;
-    margin-top: 20px;
-    font-size: 18px;
-  }
-
-  form input {
-    width: 100%;
-    padding: 7px;
-    border: none;
-    border: 1px solid gray;
-    border-radius: 6px;
-    outline: none;
-  }
-
-  input[type="submit"] {
-    width: 320px;
-    height: 35px;
-    margin-top: 20px;
-    border: none;
-    background-color: #49c1a2;
-    color: white;
-    font-size: 18px;
   }
 
   button {
@@ -66,10 +33,10 @@
   }
   a {
     text-decoration: none;
-    color: #e3e7e1cc;
+    color: #000000cc;
   }
   button:hover {
-    color: #d42020;
+    background-color: rgb(236, 136, 203);
   }
   button,
   #lo {
@@ -77,49 +44,77 @@
   }
 
   #lo:hover {
-    color: #d42020;
+    background-color: rgb(236, 136, 203);
   }
 
   a:hover {
-    color: #b3d420a4;
+    background-color: rgb(236, 136, 203);
+  }
+
+  #po {
+    margin-left: 36%;
+    margin-top: 4%;
   }
 </style>
 
 <body>
   <div>
     <h1>All existing Certification</h1>
-
-    <form method="get" action="existing" id="s">
-      {% csrf_token %}
-
-      <input type="text" placeholder="search..." name="search" />
-      <input type="hidden" value="{{uid}}" />
-      <button
-        type="submit"
-        id="lo"
-        onclick="document.location='existing?uid={{uid}}'"
-        form="s"
-      >
-        Go
-      </button>
-    </form>
-    <table>
+    <button
+      type="button"
+      onclick="document.location='create'"
+      style="width: 200px; margin-left: 42%; margin-top: 2%"
+    >
+      Add Certificate
+    </button>
+    <div id="nm">
+      <form method="get" action="existing" id="s">
+        {% csrf_token %}
+        <input
+          style="height: 31px; font-size: 18px; margin-left: 40%"
+          type="text"
+          placeholder="search..."
+          name="search"
+        />
+        <input type="hidden" value="{{uid}}" />
+        <button
+          type="submit"
+          id="lo"
+          onclick="document.location='existing?uid={{uid}}'"
+          form="s"
+          style="width: 50px; height: 31px; margin-top: 10.5%"
+        >
+          Go
+        </button>
+      </form>
+    </div>
+    <table id="po" style="width: 400px">
       <tr>
         <th>Certification Name</th>
         <th>Action</th>
       </tr>
       {% for a,b in m %}
-      <tr>
+      <tr style="color: black" id="ui">
         <td><a href="pe?z={{a}}">{{a}}</a><br /></td>
-        <td><a href="delete?w={{a}}">delete</a><br /></td>
+        <td><a href="delete?w={{a}}">Delete</a><br /></td>
       </tr>
       {% endfor %}
     </table>
 
-    <button type="button" onclick="history.back()">Home</button>
-    <button type="button" onclick="document.location='create'">
-      Add another Certificate
+    <button
+      type="button"
+      style="position: absolute; width: 100px; top: 2px; left: 14px"
+      onclick="history.back()"
+    >
+      Home
     </button>
-    <button type="button" onclick="document.location='logout'">logout</button>
+
+    <button
+      type="button"
+      style="position: absolute; width: 100px; top: 2px; right: 14px"
+      onclick="document.location='logout'"
+    >
+      logout
+    </button>
   </div>
 </body>

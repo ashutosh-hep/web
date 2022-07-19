@@ -1,18 +1,30 @@
+{% if re %}
+
+<script>
+  alert("{{re}}");
+</script>
+
+{% endif %}
+
 <style>
   body {
-    background-color: #344a72;
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/cpanel-10ae6.appspot.com/o/bg-01.jpg?alt=media&token=c6d82939-bb59-4ff4-903c-09b0af8c7b28);
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: "Roboto", sans-serif;
   }
 
   .forget-box {
     width: 360px;
-    height: 620px;
-    margin: auto;
+    height: 500px;
+    margin-top: 2.5%;
+    margin-left: 38%;
     background-color: white;
-    border-radius: 3px;
+    border-radius: 8px;
+    padding-top: 1.7%;
   }
 
-  h1 {
+  h2 {
     text-align: center;
     padding-top: 15px;
   }
@@ -57,23 +69,36 @@
     font-size: 18px;
     border-radius: 3px;
   }
+  button:hover {
+    background-color: rgb(236, 136, 203);
+  }
+  input[type="submit"]:hover {
+    background-color: rgb(236, 136, 203);
+  }
 
   .as {
     margin-top: 15%;
     align-items: center;
   }
+  input[type="submit"],
+  button {
+    cursor: pointer;
+  }
 </style>
 
 <body>
   <div class="forget-box">
-    <h1 id="fp">Forget Password</h1>
+    <h2 id="fp">Reset Your Password</h2>
     <div class="as">
       <form action="postfp" method="post">
         {% csrf_token %}
         <label>Email:</label>
-        <input type="email" name="email" /><br />
+        <input type="email" name="email" required /><br />
 
         <input type="submit" value="Send Link" />
+        <button type="button" onclick="document.location='cancelsignup'">
+          Sign In or Sign Up
+        </button>
       </form>
     </div>
   </div>

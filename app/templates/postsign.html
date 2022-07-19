@@ -7,21 +7,25 @@
 {% endif %}
 <style>
   body {
-    background-color: #344a72;
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/cpanel-10ae6.appspot.com/o/bg-01.jpg?alt=media&token=c6d82939-bb59-4ff4-903c-09b0af8c7b28);
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: "Roboto", sans-serif;
   }
 
   .forget-box {
     width: 360px;
-    height: 225px;
-    margin: auto;
+    height: 190px;
+    margin-top: 6%;
+    margin-left: 39%;
     background-color: white;
-    border-radius: 3px;
+    border-radius: 8px;
+    padding-top: 1.7%;
+    align-items: center;
   }
 
   h1 {
-    text-align: center;
-    padding-top: 15px;
+    padding-top: 30px;
   }
 
   form {
@@ -66,7 +70,7 @@
     margin-left: 5.8%;
   }
   button:hover {
-    color: #d42020;
+    background-color: rgb(236, 136, 203);
   }
   button {
     cursor: pointer;
@@ -80,26 +84,34 @@
     color: aliceblue;
     margin-left: 40.5%;
   }
+  #po {
+    margin-top: 10px;
+  }
 </style>
 
 <body>
   <div id="lo">
-    <h2>Welcome to certihub</h2>
-    <h3>{{e}}</h3>
+    <h1>Welcome to certihub</h1>
   </div>
   <div class="forget-box">
     <body>
-      <div>
+      <div id="po">
         <button type="button" onclick="document.location='create'">
           Register Certification details
         </button>
         <button type="button" onclick="document.location='existing'">
           existing Certification details
         </button>
-        <button type="button" onclick="document.location='logout'">
-          logout</button
-        ><br /><br />
+        <button
+          type="button"
+          style="position: absolute; width: 100px; top: 30px; right: 14px"
+          onclick="document.location='logout'"
+        >
+          logout
+        </button>
       </div>
     </body>
   </div>
+
+  <h3 style="position: absolute; width: 100px; top: 2px; right: 16%">{{e}}</h3>
 </body>

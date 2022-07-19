@@ -95,14 +95,19 @@ def fp(request):
     return render(request, "fp.html")
 
 def postfp(request):
+    try:
 
-    email = request.POST.get('email')
+        email = request.POST.get('email')
 
-    authe.send_password_reset_email(email)
+        authe.send_password_reset_email(email)
 
-    message = "Reset link sent"
+        message = "Reset link sent"
 
-    return render(request, "sign.html", {"r":message})
+        return render(request, "sign.html", {"r":message})
+
+    except:
+        message = "incorret email"
+        return render(request, "fp.html", {"re":message})
 
 def create(request):
     
