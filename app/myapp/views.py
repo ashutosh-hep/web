@@ -153,7 +153,7 @@ def postcreate(request):
 
     }
 
-    database.child("users").child(a).child(csp+"  "+ cname).set(data)
+    database.child("users").child(a).child(csp+" "+ cname).set(data)
 
 
     subject = " Update from certihub "
@@ -190,7 +190,7 @@ def existing(request):
         work_id = []
 
         for i in to_sho:
-            wor = database.child("users").child(uid).child(i).child("cid").get().val()
+            wor = database.child("users").child(uid).child(i).child("cname").get().val()
             wor = str(wor)+"$"+str(i)
             work_id.append(wor)
 
@@ -291,6 +291,10 @@ def delete(request):
 def cancelsignup(request):
 
     return render(request, "sign.html")
+
+def postsign2(request):
+
+    return render(request, "postsign.html")
 
     
     
