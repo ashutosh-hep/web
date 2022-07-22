@@ -1,8 +1,10 @@
 
+from ast import Global
 from distutils.command.config import config
 import email
 import re
 import string
+from stringprep import in_table_c11
 from unicodedata import name
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -39,20 +41,85 @@ def sign(request):
     return render(request, 'sign.html')
 
 def postsign(request):
+
+
+    
     email = request.POST.get('email')
     password = request.POST.get('password')
 
-    try:
 
-        user = authe.sign_in_with_email_and_password(email,password)
+    
+    we = email.split("@")
+    we = we[0]
+    if "." in we:
 
-    except:
-        message = "Invalid user"
-        return render(request, 'sign.html',{"m":message})
+        a = we.replace(".","_")
 
-    session_id = user["idToken"]
-    request.session["uid"]=str(session_id)
-    return render(request, 'postsign.html',{"e":email})
+    else:
+        a = we
+
+    to_show = database.child("admins").shallow().get().val()
+    admis = []
+
+    for i in to_show:
+        admis.append(i)
+
+    #a = ["ashutoshkumar.here@gmail.com","nandlalkamat5@gmail.com","shradha11karn@gmail.com","aayushthakur1412@gmail.com"]
+
+    
+
+    if a in admis:
+
+        try:
+
+            user = authe.sign_in_with_email_and_password(email,password)
+
+        except:
+            message = "Invalid user"
+            return render(request, 'sign.html',{"m":message})
+
+        session_id = user["idToken"]
+        request.session["uid"]=str(session_id)
+
+
+        to_show = database.child("users").shallow().get().val()
+        lis = []
+
+        for i in to_show:
+            lis.append(i)
+
+
+        e = user["email"]
+        we = str(e).split("@")
+        we = we[0]
+        #database.child("users").child(we).set()
+        return render(request, 'adminp.html',{"e":lis})
+    
+    else:
+        try:
+
+            user = authe.sign_in_with_email_and_password(email,password)
+
+        except:
+            message = "Invalid user"
+            return render(request, 'sign.html',{"m":message})
+
+        e = user["email"]
+        we = str(e).split("@")
+        we = we[0]
+        if "." in we:
+            a = we.replace(".","_")
+
+        else:
+            a = we
+
+        
+        #database.child("users").child(a).set(data)
+        #database.child("users").child(a).child("status").remove()
+        
+        session_id = user["idToken"]
+        request.session["uid"]=str(session_id)
+        return render(request, 'postsign.html',{"e":email})
 
 
 
@@ -71,6 +138,23 @@ def postup(request):
     name = request.POST.get('name')
     email = request.POST.get('email')
     password = request.POST.get('password')
+
+    we = str(email).split("@")
+
+    we = we[0]
+    #a = a["localId"]
+    if "." in we:
+        a = we.replace(".","_")
+
+    else:
+        a = we
+
+    data = {
+        "Name":name,
+        "Acc_status":0
+    }
+
+    database.child("users").child(a).child("personal_details").set(data)
 
     try:
 
@@ -137,7 +221,16 @@ def postcreate(request):
     a = a["users"]
     a = a[0]
     email = a["email"]
-    a = a["localId"]
+    we = str(email).split("@")
+
+    we = we[0]
+    #a = a["localId"]
+    if "." in we:
+        a = we.replace(".","_")
+
+    else:
+        a = we
+    
     
 
     data = {
@@ -182,9 +275,21 @@ def existing(request):
         a = authe.get_account_info(idtoken)
         a = a["users"]
         a = a[0]
-        uid = a["localId"]
+        #uid = a["localId"]
 
         #uid = request.GET.get("uid")
+        email = a["email"]
+        we = str(email).split("@")
+
+        we = we[0]
+        #a = a["localId"]
+        if "." in we:
+            uid = we.replace(".","_")
+
+        else:
+            uid = we
+
+
        
         to_sho = database.child("users").child(uid).shallow().get().val()
         work_id = []
@@ -206,7 +311,7 @@ def existing(request):
 
         fin = zip(s_id,s_work)
 
-        return render(request, "existing.html", {"m":fin,"uid":uid})
+        return render(request, "existing.html", {"m":s_id,"uid":uid})
 
     else:
 
@@ -214,7 +319,17 @@ def existing(request):
         a = authe.get_account_info(idtoken)
         a = a["users"]
         a = a[0]
-        a = a["localId"]
+        #a = a["localId"]
+        email = a["email"]
+        we = str(email).split("@")
+
+        we = we[0]
+        #a = a["localId"]
+        if "." in we:
+            a = we.replace(".","_")
+
+        else:
+            a = we
 
 
         try:
@@ -237,7 +352,11 @@ def existing(request):
 
             fin = zip(lis,ind_ls)
 
-            return render(request, "existing.html", {"m":fin,"uid":a})
+            if "personal_details" in lis:
+
+                lis.remove("personal_details")
+
+            return render(request, "existing.html", {"m":lis,"uid":a})
 
         except:
             message = "you do not have any existing certification"
@@ -246,26 +365,56 @@ def existing(request):
 
 def pe(request):
 
+
+
     b = request.GET.get("z")
+    #re = request.GET.get("y")
 
     idtoken = request.session['uid']
     a = authe.get_account_info(idtoken)
     a = a["users"]
     a = a[0]
-    a = a["localId"]
+    c = a["email"]
+    c = str(c)
+    #a = a["localId"]
+    email = a["email"]
+    we = str(email).split("@")
 
-    wor1 = database.child("users").child(a).child(b).child("csp").get().val()
-    wor2 = database.child("users").child(a).child(b).child("cid").get().val()
-    wor3 = database.child("users").child(a).child(b).child("cname").get().val()
-    wor4 = database.child("users").child(a).child(b).child("clevel").get().val()
-    wor5 = database.child("users").child(a).child(b).child("url").get().val()
-    wor6 = database.child("users").child(a).child(b).child("edate").get().val()
-    wor7 = database.child("users").child(a).child(b).child("cdate").get().val()
-    wor8 = database.child("users").child(a).child(b).child("ename").get().val()
-    wor9 = database.child("users").child(a).child(b).child("validity").get().val()
+    we = we[0]
+    #a = a["localId"]
+    if "." in we:
+        a = we.replace(".","_")
+
+    else:
+        a = we
+
+    to_show = database.child("admins").shallow().get().val()
+    admis = []
+
+    for i in to_show:
+        admis.append(i)
+
+    
+    #ad = ["ashutoshkumar.here@gmail.com","nandlalkamat5@gmail.com","shradha11karn@gmail.com","aayushthakur1412@gmail.com"]
+
+    if a in admis:
+        d = bes
+
+    else:
+        d = a
+
+    wor1 = database.child("users").child(d).child(b).child("csp").get().val()
+    wor2 = database.child("users").child(d).child(b).child("cid").get().val()
+    wor3 = database.child("users").child(d).child(b).child("cname").get().val()
+    wor4 = database.child("users").child(d).child(b).child("clevel").get().val()
+    wor5 = database.child("users").child(d).child(b).child("url").get().val()
+    wor6 = database.child("users").child(d).child(b).child("edate").get().val()
+    wor7 = database.child("users").child(d).child(b).child("cdate").get().val()
+    wor8 = database.child("users").child(d).child(b).child("ename").get().val()
+    wor9 = database.child("users").child(d).child(b).child("validity").get().val()
 
     return render(request, "pe.html", {"cid":wor2,"cname":wor3,"csp":wor1,"clevel":wor4,"c":b,"cimg":wor5,"edate":wor6,"cdate":wor7,
-    "ename":wor8,"validity":wor9})
+        "ename":wor8,"validity":wor9})
 
 def delete(request):
     b = request.GET.get("w")
@@ -275,9 +424,19 @@ def delete(request):
     a = a["users"]
     a = a[0]
     email = a["email"]
-    a = a["localId"]
+    #a = a["localId"]
 
-    database.child("users").child(a).child(b).set({})
+    email = a["email"]
+    we = str(email).split("@")
+
+    we = we[0]
+    #a = a["localId"]
+    if "." in we:
+        a = we.replace(".","_")
+    else:
+        a = we
+
+    database.child("users").child(a).child(b).remove()
 
     subject = " Update from certihub "
     message = "a certificate has been deleted from your account"
@@ -296,6 +455,30 @@ def postsign2(request):
 
     return render(request, "postsign.html")
 
+
+def adminp(request):
+
+    return render(request, "adminp.html")
     
+
+def adminpe(request):
+    global bes
+    bes = request.GET.get("z")
+
+    to_show = database.child("users").child(bes).shallow().get().val()
+    lis = []
+
+    for i in to_show:
+        lis.append(i)
+
+    
+    if "personal_details" in lis:
+
+        lis.remove("personal_details")
+        
+
+
+    return render(request, "adminpe.html",{"m":lis})
+
     
 

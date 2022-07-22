@@ -16,6 +16,8 @@ urlpatterns = [
    path('pe',views.pe, name="pe"),
    path('delete',views.delete, name="delete"),
    path('cancelsignup',views.cancelsignup, name="cancelsignup"),
-   path('postsign2',views.postsign2, name="postsign2")
+   path('postsign2',views.postsign2, name="postsign2"),
+   path('adminp',views.adminp, name="adminp"),
+   path('adminpe',views.adminpe, name="adminpe")
 
 ]

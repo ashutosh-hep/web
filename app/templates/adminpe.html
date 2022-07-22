@@ -1,5 +1,3 @@
-<input type="hidden" value="0uwR1mh4zIbzBtHl3uirCZzkyhc2" name="token" />
-
 <style>
   table,
   th,
@@ -61,44 +59,15 @@
 
 <body>
   <div>
-    <h1>All Existing Certification</h1>
-    <button
-      type="button"
-      onclick="document.location='create'"
-      style="width: 200px; margin-left: 42%; margin-top: 2%"
-    >
-      Add Certificate
-    </button>
-    <div id="nm">
-      <form method="get" action="existing" id="s">
-        {% csrf_token %}
-        <input
-          style="height: 31px; font-size: 18px; margin-left: 40%"
-          type="text"
-          placeholder="search..."
-          name="search"
-        />
-        <input type="hidden" value="{{uid}}" />
-        <button
-          type="submit"
-          id="lo"
-          onclick="document.location='existing?uid={{uid}}'"
-          form="s"
-          style="width: 50px; height: 31px; margin-top: 10.5%"
-        >
-          Go
-        </button>
-      </form>
-    </div>
+    <h1>All Existing Certification for user</h1>
+
     <table id="po" style="width: 400px">
       <tr>
         <th>Certification Name</th>
-        <th>Action</th>
       </tr>
       {% for a in m %}
       <tr style="color: black" id="ui">
         <td><a href="pe?z={{a}}">{{a}}</a><br /></td>
-        <td><a href="delete?w={{a}}">Delete</a><br /></td>
       </tr>
       {% endfor %}
     </table>
@@ -106,7 +75,7 @@
     <button
       type="button"
       style="position: absolute; width: 100px; top: 2px; left: 14px"
-      onclick="document.location='postsign2'"
+      onclick="history.back()"
     >
       Home
     </button>
